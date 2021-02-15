@@ -1,4 +1,64 @@
-//Prima di tutto, lavoriamo sul formato Date... mi serve di sicuro una funzione (di mia creazione, perché sono FiKo) che converta la data nel formato che voglio io. Ricorda: il conteggio di giorni/mesi parte sempre da 0, il primo giorno della settimana sarebbe la Domenica (Sunday))
+/* UTILITIES */
+
+const state = {
+    config: {
+        base_url: 'https://jsonplaceholder.typicode.com/todos',
+        error_mess: 'La richiesta non è andata a buon fine :/'
+    },
+    
+    doc_appointment: null
+}
+
+/* getData si occupa della richeista dei dati dall'url e del salvataggio della loro conversione JSON nell'oggetto state.
+
+setData si occupa dell'inserimento dei dati aggiuntivi (priority e date) negli oggetti appointment recepiti */
+
+async function getData(url) {
+
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw error;
+        }
+
+        const responseJSON = await response.json();
+
+        results = setData(responseJSON);
+        
+        state.doc_appointment = results;
+
+        return results;
+    }
+
+    catch(err) {
+        console.log(err);
+    }
+}
+
+/* function setData(responseList) {
+    
+    const result = responseList.map(function new(appointment) {
+    appointment['priority'] = generateRandomNumber();
+    appointment['date'] = generateRandomDate();
+    });
+
+    return result;
+
+} */
+
+const prova = getData(state.config.base_url);
+console.log(prova)
+
+function generateRandomNumber(num) {
+    const random = Math.random();
+     
+    const result = Math.floor(random*num);
+
+    return result;
+}
+
+/* Funzioni per la gestione delle date */
 
 function convertDate(date) {
 
@@ -73,7 +133,6 @@ function convertDate(date) {
     return result_date;
 }
 
-//Passiamo ora a creare la funzione che generi una data random. Per comodità (e per evitare che il Medico vada in pensione nel 3000!), la funzione genererà la data all'interno di un intervallo di una settimana costruito a partire dalla data odierna. In questo modo, manteniamo verosimiglianza per il programma.
 
 //604.800.000: i millisecondi in una settimana
 function generateRandomDate() {
