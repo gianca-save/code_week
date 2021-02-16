@@ -27,35 +27,28 @@ async function getData(url) {
         results = setData(responseJSON);
         
         state.doc_appointment = results;
+        console.log(state.doc_appointment)
 
         return results;
     }
 
     catch(err) {
-        console.log(err);
+        console.log(state.config.error_mess, err);
+        //metti una pagina html extra di errore
     }
 }
 
-/* function setData(responseList) {
+function setData(responseList) {
     
-    const result = responseList.map(function new(appointment) {
-    appointment['priority'] = generateRandomNumber();
+    const result = responseList.map(appointment => {
+    appointment['priority'] = generateRandomNumber(4);
     appointment['date'] = generateRandomDate();
+
+    return appointment;
     });
 
     return result;
 
-} */
-
-const prova = getData(state.config.base_url);
-console.log(prova)
-
-function generateRandomNumber(num) {
-    const random = Math.random();
-     
-    const result = Math.floor(random*num);
-
-    return result;
 }
 
 /* Funzioni per la gestione delle date */
@@ -133,7 +126,7 @@ function convertDate(date) {
     return result_date;
 }
 
-
+/* Funzioni generatrici Random */
 //604.800.000: i millisecondi in una settimana
 function generateRandomDate() {
     const today = new Date();
@@ -145,3 +138,43 @@ function generateRandomDate() {
     return random_date;
     
 }
+
+function generateRandomNumber(num) {
+    const random = Math.random();
+     
+    const result = Math.floor(random*num) + 1;
+
+    return result;
+}
+
+function getPastAppointments(appointments) {
+    const today = new Date();
+    const pastAppointments = appointments.filter(obj => { return obj.date.getDate() < today.getDate()});
+    return pastAppointments;
+}
+
+function getTodaysAppointments(appointments) {
+    const today = new Date();
+    const todaysAppointments = appointments.filter(obj => { return obj.date.getDate() == today.getDate()});
+    return todaysAppointments;
+}
+
+function getFutureAppointments(appointments) {
+    const today = new Date();
+    const futureAppointments = appointments.filter(obj => { return obj.date.getDate() > today.getDate()});
+    return futureAppointments;
+}
+
+/* async function prova() {
+    await getData(state.config.base_url);
+
+    console.log(state.doc_appointment);
+
+    const filtrati = getTodaysAppointments(state.doc_appointment);
+
+    console.log(state.doc_appointment);
+    console.log(filtrati);
+}
+
+prova() */
+
