@@ -1,3 +1,7 @@
+const div_pastAppointments = document.querySelector('#past_appointments');
+const div_todaysAppointments = document.querySelector('#todays_appointments');
+const div_futureAppointments = document.querySelector('#future_appointments');
+
 /* UTILITIES */
 
 const state = {
@@ -52,6 +56,27 @@ function setData(responseList) {
 }
 
 /* Funzioni per la gestione delle date */
+
+/* function orderDates(dateList) {
+    const n = dateList.length;
+    for (const i = 0; i < n; i++) {
+        const switch = false;
+        for (const j=1; j<(n-i)) {
+            if (dateList[j-1] > dateList[j]) {
+                const temp = dateList[j-1];
+                dateList[j-1] = dateList[j];
+                dateList[j] = temp;
+                swtich = true;
+            }
+        }
+
+        if (!scambia) {
+            break;
+        }
+    }
+
+    return dateList;
+} */
 
 function convertDate(date) {
 
@@ -147,34 +172,144 @@ function generateRandomNumber(num) {
     return result;
 }
 
+/* Funzioni di filtraggio date */
+
 function getPastAppointments(appointments) {
     const today = new Date();
-    const pastAppointments = appointments.filter(obj => { return obj.date.getDate() < today.getDate()});
+    const pastAppointments = appointments.filter(obj => {
+        
+        if (obj.date.getMonth() === today.getMonth()) {
+            return obj.date.getDate() < today.getDate();
+        }
+
+        else if (obj.date.getMonth() < today.getMonth()) {
+            return obj;
+        }
+
+    });
     return pastAppointments;
 }
 
 function getTodaysAppointments(appointments) {
     const today = new Date();
-    const todaysAppointments = appointments.filter(obj => { return obj.date.getDate() == today.getDate()});
+    const todaysAppointments = appointments.filter(obj => { return (obj.date.getDate() === today.getDate() && obj.date.getMonth() === today.getMonth())});
     return todaysAppointments;
 }
 
 function getFutureAppointments(appointments) {
     const today = new Date();
-    const futureAppointments = appointments.filter(obj => { return obj.date.getDate() > today.getDate()});
+    const futureAppointments = appointments.filter(obj => {
+        
+        if (obj.date.getMonth() === today.getMonth()) {
+            return obj.date.getDate() > today.getDate();
+        }
+
+        else if (obj.date.getMonth() > today.getMonth()) {
+            return obj;
+        }});
+
     return futureAppointments;
 }
 
-/* async function prova() {
+/* Funzioni di creazione dei blocchi di visite */
+
+//renderPastFutureAppointmentCard crea le singole righe dei blocchi degli appuntamenti passati e futuri. Il blocco degli appuntamenti del giorno corrente avranno una struttura diversa. pastFutureBlock è il parametro che rappresenta il blocco (degli appuntamenti passati o di quelli futuri)
+function renderPastFutureAppointmentCard(pastFutureBlock, appointment) {
+    const appointmentCard = document.createElement('div');
+    const patientName = document.createElement('h3');
+    const examinationType = document.createElement('p');
+    const appointmentID = document.createElement('p');
+    const appointmentDate = document.createElement('p');
+    const priorityLevel = document.createElement('p');
+    const completed = document.createElement('div');
+
+    patientName.textContent = `Paziente: ${appointment.userId}`;
+    examinationType.textContent = `Tipo di visita: ${appointment.title}`;
+    appointmentID.textContent = `ID visita: ${appointment.id}`;
+    appointmentDate.textContent = `Data: ${convertDate(appointment.date)}`;
+    priorityLevel.textContent = `Livello di priorità: ${appointment.priority}`;
+
+    appointmentCard.appendChild(patientName);
+    appointmentCard.appendChild(examinationType);
+    appointmentCard.appendChild(appointmentID);
+    appointmentCard.appendChild(appointmentDate);
+    appointmentCard.appendChild(priorityLevel);
+    appointmentCard.appendChild(completed);
+
+    pastFutureBlock.appendChild(appointmentCard);
+
+    return appointmentCard;
+
+}
+
+function renderTodaysAppointmentCard(todaysBlock, appointment) {
+    const appointmentCard = document.createElement('div');
+    const patientName = document.createElement('h3');
+    const examinationType = document.createElement('p');
+    const appointmentID = document.createElement('p');
+    const priorityLevel = document.createElement('p');
+    const completed = document.createElement('div');
+
+    patientName.textContent = `Paziente: ${appointment.userId}`;
+    examinationType.textContent = `Tipo di visita: ${appointment.title}`;
+    appointmentID.textContent = `ID visita: ${appointment.id}`;
+    priorityLevel.textContent = `Livello di priorità: ${appointment.priority}`;
+
+    appointmentCard.appendChild(patientName);
+    appointmentCard.appendChild(examinationType);
+    appointmentCard.appendChild(appointmentID);
+    appointmentCard.appendChild(priorityLevel);
+    appointmentCard.appendChild(completed);
+
+    todaysBlock.appendChild(appointmentCard);
+
+    return appointmentCard;
+}
+
+function renderPastAppointments(pastAppointments) {    
+
+    for (appointment of pastAppointments) {
+        const pastAppointmentCard = renderPastFutureAppointmentCard(div_pastAppointments, appointment);
+        //associare CLASSE!!!
+    }
+}
+
+function renderFutureAppointments(futureAppointments) {
+
+    for (appointment of futureAppointments) {
+        const futureAppointmentCard = renderPastFutureAppointmentCard(div_futureAppointments, appointment);
+        //associare CLASSE!!!
+    }
+}
+
+function renderTodaysAppointments(todaysAppointments) {
+
+    for (appointment of todaysAppointments) {
+        const todaysAppointmentCard = renderTodaysAppointmentCard(div_todaysAppointments, appointment);
+        //associare CLASSE!!!
+    }
+}
+
+
+
+async function prova() {
     await getData(state.config.base_url);
 
     console.log(state.doc_appointment);
 
-    const filtrati = getTodaysAppointments(state.doc_appointment);
+    const filtrati1 = getPastAppointments(state.doc_appointment);
+    const filtrati2 = getTodaysAppointments(state.doc_appointment);
+    const filtrati3 = getFutureAppointments(state.doc_appointment)
 
     console.log(state.doc_appointment);
-    console.log(filtrati);
+    console.log(filtrati1);
+    console.log(filtrati2);
+    console.log(filtrati3);
+
+    renderPastAppointments(filtrati1);
+    renderTodaysAppointments(filtrati2);
+    renderFutureAppointments(filtrati3);
 }
 
-prova() */
+prova()
 

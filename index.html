@@ -4,11 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Studio Medico</title>
 </head>
 <body>
     <main>
-        <h1>CIAO</h1>
+        <h1>CALENDARIO DI DATE</h1>
+        <div id="past_appointments">
+            <h2>APPUNTAMENTI DELL'ULTIMA SETTIMANA</h2>
+            <table id="tbl_past">
+                <!--da decidere se metterle in modo brutale o se creare dei blocchi-->
+            </table>
+        </div>
+        <div id="todays_appointments">
+            <h2>APPUNTAMENTI DI OGGI</h2> <!--Aggiungi la data nell'H2!!!-->
+            <button id="goToPast"></button>
+            <table id="tbl_today">
+                <tr>
+                    <th>ID visita</th>
+                    <th>Paziente</th>
+                    <th>Tipo di visita</th>
+                    <th>Completata</th>
+                </tr>
+            </table>
+        </div>
+        <div id="future_appointments">
+            <h2>APPUNTAMENTI DELLA PROSSIMA SETTIMANA</h2>
+            <table id="tbl_future">
+                <!--da decidere se metterle in modo brutale o se creare dei blocchi-->
+            </table>
+        </div>
     </main>
     <script src="index.js"></script>
 </body>
