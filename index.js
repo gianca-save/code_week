@@ -2,6 +2,10 @@ const btn_loadData = document.querySelector('#btn_loadData')
 const div_pastAppointments = document.querySelector('#past_appointments');
 const div_todaysAppointments = document.querySelector('#todays_appointments');
 const div_futureAppointments = document.querySelector('#future_appointments');
+const todays_table_title = document.querySelector('#todays_table_title')
+const first_row__past = document.querySelector('#first_row__past');
+const first_row__today = document.querySelector('#first_row__today');
+const first_row__future = document.querySelector('#first_row__future');
 
 /* UTILITIES */
 
@@ -233,11 +237,11 @@ function renderPastFutureAppointmentCard(pastFutureBlock, appointment) {
     const priorityLevel = document.createElement('p');
     const completed = document.createElement('div');
 
-    patientName.textContent = `Paziente: ${appointment.userId}`;
-    examinationType.textContent = `Tipo di visita: ${appointment.title}`;
-    appointmentID.textContent = `ID visita: ${appointment.id}`;
-    appointmentDate.textContent = `Data: ${convertDate(appointment.date)}`;
-    priorityLevel.textContent = `Livello di priorità: ${appointment.priority}`;
+    patientName.textContent = appointment.userId;
+    examinationType.textContent = appointment.title;
+    appointmentID.textContent = appointment.id;
+    appointmentDate.textContent = convertDate(appointment.date);
+    priorityLevel.textContent = appointment.priority;
 
     appointmentCard.appendChild(patientName);
     appointmentCard.appendChild(examinationType);
@@ -262,10 +266,10 @@ function renderTodaysAppointmentCard(todaysBlock, appointment) {
     const priorityLevel = document.createElement('p');
     const completed = document.createElement('div');
 
-    patientName.textContent = `Paziente: ${appointment.userId}`;
-    examinationType.textContent = `Tipo di visita: ${appointment.title}`;
-    appointmentID.textContent = `ID visita: ${appointment.id}`;
-    priorityLevel.textContent = `Livello di priorità: ${appointment.priority}`;
+    patientName.textContent = appointment.userId;
+    examinationType.textContent = appointment.title;
+    appointmentID.textContent = appointment.id;
+    priorityLevel.textContent = appointment.priority;
 
     appointmentCard.appendChild(patientName);
     appointmentCard.appendChild(examinationType);
@@ -280,7 +284,9 @@ function renderTodaysAppointmentCard(todaysBlock, appointment) {
     return appointmentCard;
 }
 
-function renderPastAppointments(pastAppointments) {    
+function renderPastAppointments(pastAppointments) {  
+    
+    first_row__past.classList.add('appointment_card');
 
     for (appointment of pastAppointments) {
         const pastAppointmentCard = renderPastFutureAppointmentCard(div_pastAppointments, appointment);
@@ -290,6 +296,8 @@ function renderPastAppointments(pastAppointments) {
 
 function renderFutureAppointments(futureAppointments) {
 
+    first_row__future.classList.add('appointment_card');
+
     for (appointment of futureAppointments) {
         const futureAppointmentCard = renderPastFutureAppointmentCard(div_futureAppointments, appointment);
         //associare CLASSE!!!
@@ -297,6 +305,12 @@ function renderFutureAppointments(futureAppointments) {
 }
 
 function renderTodaysAppointments(todaysAppointments) {
+
+    const today = new Date()
+
+    todays_table_title.textContent = `APPUNTAMENTI DI OGGI, ${convertDate(today)}`;
+
+    first_row__today.classList.add('appointment_card');
 
     for (appointment of todaysAppointments) {
         const todaysAppointmentCard = renderTodaysAppointmentCard(div_todaysAppointments, appointment);

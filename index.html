@@ -11,17 +11,38 @@
     <main>
         <h1>CALENDARIO DI DATE</h1>
         <button id="btn_loadData">Carica Dati</button>
+        <!--I div degli appointments devo inserirli in un div più grande la cui classe venga flexata. Così prima di tutto ottengo l'orizzontalità. Poi potrò ricavare il carosello...-->
         <div id="past_appointments">
             <h2>APPUNTAMENTI DELL'ULTIMA SETTIMANA</h2>
+            <div id="first_row__past" class="is-hidden">
+                <strong><h3>ID Visita</h3></strong>
+                <strong><h3>Paziente</h3></strong>
+                <strong><h3>Tipo di Visita</h3></strong>
+                <strong><h3>Data</h3></strong>
+                <strong><h3>Livello di Priorità</h3></strong>
+            </div>
             <button class="goToFuture">Appuntamenti di questa settimana</button>
         </div>
         <div id="todays_appointments">
-            <h2>APPUNTAMENTI DI OGGI</h2> <!--Aggiungi la data nell'H2!!!-->
+            <h2 id="todays_table_title"></h2> <!--Aggiungi la data nell'H2!!!-->
             <button class="goToPast">Appuntamenti della settimana scorsa</button>
             <button class="goToFuture">Appuntamenti della prossima settimana</button>
+            <div id="first_row__today" class="is-hidden">
+                <strong><h3>ID Visita</h3></strong>
+                <strong><h3>Paziente</h3></strong>
+                <strong><h3>Tipo di Visita</h3></strong>
+                <strong><h3>Livello di Priorità</h3></strong>
+            </div>
         </div>
         <div id="future_appointments">
             <h2>APPUNTAMENTI DELLA PROSSIMA SETTIMANA</h2>
+            <div id="first_row__future" class="is-hidden">
+                <strong><h3>ID Visita</h3></strong>
+                <strong><h3>Paziente</h3></strong>
+                <strong><h3>Tipo di Visita</h3></strong>
+                <strong><h3>Data</h3></strong>
+                <strong><h3>Livello di Priorità</h3></strong>
+            </div>
             <button class="goToPast"></button>
         </div>
     </main>

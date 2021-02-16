@@ -6,7 +6,22 @@ main {
   text-align: center;
 }
 
+.is-hidden {
+  display: none;
+}
+
 .appointment_card {
   display: flex;
   flex-direction: row;
+  background-color: rgb(118, 253, 253);
+  border-radius: 1rem;
+  margin-bottom: 20px;
+}
+
+.appointment_card:hover {
+  background-color: aliceblue;
+}
+
+.appointment_card > * {
+  margin-left: 20px;
 }
