@@ -1,3 +1,4 @@
+const btn_loadData = document.querySelector('#btn_loadData')
 const div_pastAppointments = document.querySelector('#past_appointments');
 const div_todaysAppointments = document.querySelector('#todays_appointments');
 const div_futureAppointments = document.querySelector('#future_appointments');
@@ -57,26 +58,31 @@ function setData(responseList) {
 
 /* Funzioni per la gestione delle date */
 
-/* function orderDates(dateList) {
-    const n = dateList.length;
-    for (const i = 0; i < n; i++) {
-        const switch = false;
-        for (const j=1; j<(n-i)) {
-            if (dateList[j-1] > dateList[j]) {
-                const temp = dateList[j-1];
-                dateList[j-1] = dateList[j];
-                dateList[j] = temp;
-                swtich = true;
+function accessDate(obj) {
+   const date = obj.date.getTime();
+   return date; 
+}
+
+//versione modificata dell'algoritmo di ordinamento BubbleSort. Usa accessDate() per accedere alla data dei singoli oggetti
+function orderByDates(list) {
+    for (let i = 0; i < list.length; i++) {
+        let exchange = false;
+        for (let j=1; j<((list.length)-i); j++) {
+            if (accessDate(list[j-1]) > accessDate(list[j])) {
+                let temp = list[j-1];
+                list[j-1] = list[j];
+                list[j] = temp;
+                exchange = true;
             }
         }
 
-        if (!scambia) {
+        if (exchange === false) {
             break;
         }
     }
 
-    return dateList;
-} */
+    return list;
+}
 
 function convertDate(date) {
 
@@ -207,6 +213,10 @@ function getFutureAppointments(appointments) {
         else if (obj.date.getMonth() > today.getMonth()) {
             return obj;
         }});
+    //gli appuntamenti futuri non possono essere completati!
+    for (appointment of futureAppointments) {
+        appointment.completed = false;
+    }
 
     return futureAppointments;
 }
@@ -238,6 +248,8 @@ function renderPastFutureAppointmentCard(pastFutureBlock, appointment) {
 
     pastFutureBlock.appendChild(appointmentCard);
 
+    appointmentCard.classList.add('appointment_card');
+
     return appointmentCard;
 
 }
@@ -262,6 +274,8 @@ function renderTodaysAppointmentCard(todaysBlock, appointment) {
     appointmentCard.appendChild(completed);
 
     todaysBlock.appendChild(appointmentCard);
+
+    appointmentCard.classList.add('appointment_card');
 
     return appointmentCard;
 }
@@ -291,25 +305,22 @@ function renderTodaysAppointments(todaysAppointments) {
 }
 
 
-
-async function prova() {
+async function loadData() {
     await getData(state.config.base_url);
 
     console.log(state.doc_appointment);
 
-    const filtrati1 = getPastAppointments(state.doc_appointment);
-    const filtrati2 = getTodaysAppointments(state.doc_appointment);
-    const filtrati3 = getFutureAppointments(state.doc_appointment)
+    const pastAppointments = orderByDates(getPastAppointments(state.doc_appointment));
+    const todaysAppointments = orderByDates(getTodaysAppointments(state.doc_appointment)); //ordino pure gli appuntamenti odierni, così se rimane tempo implemento anche la visualizzazione dell'ora...
+    const futureAppointments = orderByDates(getFutureAppointments(state.doc_appointment));
 
-    console.log(state.doc_appointment);
-    console.log(filtrati1);
-    console.log(filtrati2);
-    console.log(filtrati3);
+    console.log('Appuntamenti della scorsa settimana: \n', pastAppointments);
+    console.log('Appuntamenti di oggi: \n', todaysAppointments);
+    console.log('Appuntamenti della prossima settimana: \n', futureAppointments);
 
-    renderPastAppointments(filtrati1);
-    renderTodaysAppointments(filtrati2);
-    renderFutureAppointments(filtrati3);
+    renderPastAppointments(pastAppointments);
+    renderTodaysAppointments(todaysAppointments);
+    renderFutureAppointments(futureAppointments);
 }
 
-prova()
-
+btn_loadData.addEventListener('click', loadData);
