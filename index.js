@@ -2,7 +2,9 @@ const btn_loadData = document.querySelector('#btn_loadData')
 const div_pastAppointments = document.querySelector('#past_appointments');
 const div_todaysAppointments = document.querySelector('#todays_appointments');
 const div_futureAppointments = document.querySelector('#future_appointments');
-const todays_table_title = document.querySelector('#todays_table_title')
+const future_table_title = document.querySelector('#future_table_title');
+const past_table_title = document.querySelector('#past_table_title');
+const todays_table_title = document.querySelector('#todays_table_title');
 const first_row__past = document.querySelector('#first_row__past');
 const first_row__today = document.querySelector('#first_row__today');
 const first_row__future = document.querySelector('#first_row__future');
@@ -254,6 +256,10 @@ function renderPastFutureAppointmentCard(pastFutureBlock, appointment) {
 
     appointmentCard.classList.add('appointment_card');
 
+    if (appointment.completed == true) {
+        appointmentCard.style.backgroundColor = '#27ff44';
+    }
+
     return appointmentCard;
 
 }
@@ -279,28 +285,30 @@ function renderTodaysAppointmentCard(todaysBlock, appointment) {
 
     todaysBlock.appendChild(appointmentCard);
 
-    appointmentCard.classList.add('appointment_card');
+    appointmentCard.classList.add('appointment_card_t');
 
     return appointmentCard;
 }
 
 function renderPastAppointments(pastAppointments) {  
+
+     past_table_title.textContent = 'APPUNTAMENTI DELLA SCORSA SETTIMANA';
     
     first_row__past.classList.add('first_rows');
 
     for (appointment of pastAppointments) {
         const pastAppointmentCard = renderPastFutureAppointmentCard(div_pastAppointments, appointment);
-        //associare CLASSE!!!
     }
 }
 
 function renderFutureAppointments(futureAppointments) {
 
+    future_table_title.textContent = 'APPUNTAMENTI DELLA PROSSIMA SETTIMANA';
+
     first_row__future.classList.add('first_rows');
 
     for (appointment of futureAppointments) {
         const futureAppointmentCard = renderPastFutureAppointmentCard(div_futureAppointments, appointment);
-        //associare CLASSE!!!
     }
 }
 
@@ -314,7 +322,6 @@ function renderTodaysAppointments(todaysAppointments) {
 
     for (appointment of todaysAppointments) {
         const todaysAppointmentCard = renderTodaysAppointmentCard(div_todaysAppointments, appointment);
-        //associare CLASSE!!!
     }
 }
 
@@ -335,6 +342,9 @@ async function loadData() {
     renderPastAppointments(pastAppointments);
     renderTodaysAppointments(todaysAppointments);
     renderFutureAppointments(futureAppointments);
+
+    btn_loadData.removeEventListener('click', loadData);
+    btn_loadData.classList.add('is-hidden');
 }
 
 btn_loadData.addEventListener('click', loadData);

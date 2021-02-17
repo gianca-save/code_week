@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(234, 255, 255);
+  background-color: rgb(177, 255, 177);
 }
 
 main {
@@ -14,7 +14,7 @@ main {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  background-color: red;
+  background-color: rgb(177, 255, 177);
   width: 5000px;
 }
 
@@ -30,8 +30,7 @@ main {
 
 .appointment_card {
   border-width: 10px;
-  border-color: black;
-  margin-left: 5%;
+  margin-right: 5%;
   width: 90%;
   display: flex;
   flex-direction: row;
@@ -49,7 +48,7 @@ main {
 .first_rows {
   background-color: rgb(103, 103, 110);
   color: white;
-  margin-left: 5%;
+  margin-right: 5%;
   width: 90%;
   display: flex;
   flex-direction: row;
@@ -67,4 +66,30 @@ main {
 
 .appointment_card * {
   flex-basis: 20%;
+}
+
+.appointment_card_t {
+  border-width: 10px;
+  margin-right: 5%;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(118, 253, 253);
+  margin-bottom: 20px;
+  justify-content: space-around;
+  transition: border-radius 800ms;
+  transition: background-color 300ms;
+  justify-self: stretch;
+  justify-items: stretch;
+  flex-wrap: wrap;
+  align-content: stretch;
+}
+
+.appointment_card_t:hover {
+  background-color: rgb(48, 145, 255);
+  border-radius: 1rem;
+}
+
+.appointment_card_t * {
+  flex-basis: 20.04%;
 }
