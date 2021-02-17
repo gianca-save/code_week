@@ -11,17 +11,25 @@ main {
 }
 
 .appointment_card {
+  margin-left: 5%;
+  width: 90%;
   display: flex;
   flex-direction: row;
   background-color: rgb(118, 253, 253);
   border-radius: 1rem;
   margin-bottom: 20px;
+  justify-content: space-around;
+  transition: background-color 300ms;
+  justify-self: stretch;
+  justify-items: stretch;
+  flex-wrap: wrap;
+  align-content: stretch;
 }
 
 .appointment_card:hover {
-  background-color: aliceblue;
+  background-color: rgb(253, 255, 240);
 }
 
-.appointment_card > * {
-  margin-left: 20px;
+.appointment_card * {
+  flex-basis: 20%;
 }

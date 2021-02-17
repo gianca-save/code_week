@@ -243,9 +243,9 @@ function renderPastFutureAppointmentCard(pastFutureBlock, appointment) {
     appointmentDate.textContent = convertDate(appointment.date);
     priorityLevel.textContent = appointment.priority;
 
+    appointmentCard.appendChild(appointmentID);
     appointmentCard.appendChild(patientName);
     appointmentCard.appendChild(examinationType);
-    appointmentCard.appendChild(appointmentID);
     appointmentCard.appendChild(appointmentDate);
     appointmentCard.appendChild(priorityLevel);
     appointmentCard.appendChild(completed);
@@ -271,9 +271,9 @@ function renderTodaysAppointmentCard(todaysBlock, appointment) {
     appointmentID.textContent = appointment.id;
     priorityLevel.textContent = appointment.priority;
 
+    appointmentCard.appendChild(appointmentID);
     appointmentCard.appendChild(patientName);
     appointmentCard.appendChild(examinationType);
-    appointmentCard.appendChild(appointmentID);
     appointmentCard.appendChild(priorityLevel);
     appointmentCard.appendChild(completed);
 
