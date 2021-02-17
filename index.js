@@ -286,7 +286,7 @@ function renderTodaysAppointmentCard(todaysBlock, appointment) {
 
 function renderPastAppointments(pastAppointments) {  
     
-    first_row__past.classList.add('appointment_card');
+    first_row__past.classList.add('first_rows');
 
     for (appointment of pastAppointments) {
         const pastAppointmentCard = renderPastFutureAppointmentCard(div_pastAppointments, appointment);
@@ -296,7 +296,7 @@ function renderPastAppointments(pastAppointments) {
 
 function renderFutureAppointments(futureAppointments) {
 
-    first_row__future.classList.add('appointment_card');
+    first_row__future.classList.add('first_rows');
 
     for (appointment of futureAppointments) {
         const futureAppointmentCard = renderPastFutureAppointmentCard(div_futureAppointments, appointment);
@@ -310,7 +310,7 @@ function renderTodaysAppointments(todaysAppointments) {
 
     todays_table_title.textContent = `APPUNTAMENTI DI OGGI, ${convertDate(today)}`;
 
-    first_row__today.classList.add('appointment_card');
+    first_row__today.classList.add('first_rows');
 
     for (appointment of todaysAppointments) {
         const todaysAppointmentCard = renderTodaysAppointmentCard(div_todaysAppointments, appointment);
