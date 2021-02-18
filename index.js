@@ -257,7 +257,8 @@ function renderPastFutureAppointmentCard(pastFutureBlock, appointment) {
     appointmentCard.classList.add('appointment_card');
 
     if (appointment.completed == true) {
-        appointmentCard.style.backgroundColor = '#27ff44';
+        appointmentCard.style.backgroundColor = '#04E824';
+        appointmentCard.style.color = 'white';
     }
 
     return appointmentCard;
@@ -292,42 +293,105 @@ function renderTodaysAppointmentCard(todaysBlock, appointment) {
 
 function renderPastAppointments(pastAppointments) {  
 
-     past_table_title.textContent = 'APPUNTAMENTI DELLA SCORSA SETTIMANA';
-    
-    first_row__past.classList.add('first_rows');
+    past_table_title.textContent = 'APPUNTAMENTI DELLA SCORSA SETTIMANA';
 
-    for (appointment of pastAppointments) {
-        const pastAppointmentCard = renderPastFutureAppointmentCard(div_pastAppointments, appointment);
+    if (pastAppointments.length === 0) {
+        div_pastAppointments.textContent = 'Nessun appuntamento.'
+    }
+
+    else {
+    
+        first_row__past.classList.add('appointment_card');
+
+        for (appointment of pastAppointments) {
+            const pastAppointmentCard = renderPastFutureAppointmentCard(div_pastAppointments, appointment);
+        }
     }
 }
 
 function renderFutureAppointments(futureAppointments) {
 
-    future_table_title.textContent = 'APPUNTAMENTI DELLA PROSSIMA SETTIMANA';
+    if (futureAppointments.length === 0) {
+        div_futureAppointments.textContent = 'Nessun appuntamento.'
+    }
 
-    first_row__future.classList.add('first_rows');
+    else {
 
-    for (appointment of futureAppointments) {
-        const futureAppointmentCard = renderPastFutureAppointmentCard(div_futureAppointments, appointment);
+        future_table_title.textContent = 'APPUNTAMENTI DELLA PROSSIMA SETTIMANA';
+
+        first_row__future.classList.add('appointment_card');
+
+        for (appointment of futureAppointments) {
+            const futureAppointmentCard = renderPastFutureAppointmentCard(div_futureAppointments, appointment);
+        }
     }
 }
 
 function renderTodaysAppointments(todaysAppointments) {
 
-    const today = new Date()
+    const today = new Date();
 
-    todays_table_title.textContent = `APPUNTAMENTI DI OGGI, ${convertDate(today)}`;
+    if (todaysAppointments.length === 0) {
+        div_todaysAppointments.textContent = `Nessun appuntamento per oggi, ${convertDate(today)}`;
+    }
 
-    first_row__today.classList.add('first_rows');
+    else {
 
-    for (appointment of todaysAppointments) {
-        const todaysAppointmentCard = renderTodaysAppointmentCard(div_todaysAppointments, appointment);
+        todays_table_title.textContent = `APPUNTAMENTI DI OGGI, ${convertDate(today)}`;
+
+        first_row__today.classList.add('appointment_card');
+
+        for (appointment of todaysAppointments) {
+            const todaysAppointmentCard = renderTodaysAppointmentCard(div_todaysAppointments, appointment);
+        }
+    }
+}
+
+
+//Funzione che dia un nome ai pazienti sulla base dell'ID
+
+function giveName() {
+    for (appointment of state.doc_appointment) {
+        switch (appointment.userId) {
+            case 1:
+                appointment.userId = 'Peter Parker';
+                break;
+            case 2:
+                appointment.userId = 'Matt Murdock';
+                break;
+            case 3:
+                appointment.userId = 'James Howlett';
+                break;
+            case 4:
+                appointment.userId = 'Anthony Stark';
+                break;
+            case 5:
+                appointment.userId = 'Steve Rogers';
+                break;
+            case 6:
+                appointment.userId = 'Clint Barton';
+                break;
+            case 7:
+                appointment.userId = 'Mary Jane Watson';
+                break;
+            case 8:
+                appointment.userId = 'Gwendoline Stacy';
+                break;
+            case 9:
+                appointment.userId = 'Felicia Hardy';
+                break;
+            case 10:
+                appointment.userId = 'Anna Maria Marconi';
+                break;
+        }
     }
 }
 
 
 async function loadData() {
     await getData(state.config.base_url);
+
+    giveName();
 
     console.log(state.doc_appointment);
 

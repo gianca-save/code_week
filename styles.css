@@ -1,5 +1,6 @@
 body {
-  background-color: rgb(177, 255, 177);
+  background-color: #f1fec6;
+  font-family: "Roboto Mono", monospace;
 }
 
 main {
@@ -10,11 +11,24 @@ main {
   display: none;
 }
 
+#btn_loadData {
+  padding: 10px 20px;
+  background-color: #931621;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 250ms;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 0;
+  font-weight: 700;
+}
+
 .appointments_wrapper {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  background-color: rgb(177, 255, 177);
+  background-color: #f1fec6;
   width: 5000px;
 }
 
@@ -28,44 +42,56 @@ main {
   width: 33%;
 }
 
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 .appointment_card {
+  opacity: 1;
+  animation: fade 4s linear;
   border-width: 10px;
   margin-right: 5%;
   width: 90%;
   display: flex;
   flex-direction: row;
-  background-color: rgb(118, 253, 253);
+  background-color: #74a4bc;
   margin-bottom: 20px;
   justify-content: space-around;
+  transition: color 300ms;
   transition: border-radius 800ms;
   transition: background-color 300ms;
   justify-self: stretch;
   justify-items: stretch;
   flex-wrap: wrap;
   align-content: stretch;
+  font-size: small;
 }
 
-.first_rows {
+#first_row__today,
+#first_row__future,
+#first_row__past {
+  animation: fade 1.5s linear;
   background-color: rgb(103, 103, 110);
   color: white;
   margin-right: 5%;
   width: 90%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  justify-self: stretch;
-  justify-items: stretch;
-  align-content: stretch;
   margin-bottom: 10px;
 }
 
 .appointment_card:hover {
-  background-color: rgb(48, 145, 255);
+  background-color: #29339b;
+  color: white;
   border-radius: 1rem;
 }
 
 .appointment_card * {
-  flex-basis: 20%;
+  flex-basis: 19%;
+  justify-content: space-between;
 }
 
 .appointment_card_t {
@@ -74,22 +100,25 @@ main {
   width: 90%;
   display: flex;
   flex-direction: row;
-  background-color: rgb(118, 253, 253);
+  background-color: #74a4bc;
   margin-bottom: 20px;
   justify-content: space-around;
+  transition: color 300ms;
   transition: border-radius 800ms;
   transition: background-color 300ms;
   justify-self: stretch;
   justify-items: stretch;
   flex-wrap: wrap;
   align-content: stretch;
+  font-size: small;
 }
 
 .appointment_card_t:hover {
-  background-color: rgb(48, 145, 255);
+  background-color: #29339b;
+  color: white;
   border-radius: 1rem;
 }
 
 .appointment_card_t * {
-  flex-basis: 20.04%;
+  flex-basis: 25%;
 }
