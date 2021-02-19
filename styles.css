@@ -24,6 +24,20 @@ main {
   font-weight: 700;
 }
 
+/* .btn_order {
+  display: block;
+  padding: 10px 20px;
+  background-color: #93166d;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 250ms;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 0;
+  font-weight: 700;
+} */
+
 .appointments_wrapper {
   display: flex;
   flex-direction: row;

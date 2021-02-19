@@ -1,4 +1,4 @@
-const btn_loadData = document.querySelector('#btn_loadData')
+const btn_loadData = document.querySelector('#btn_loadData');
 const div_pastAppointments = document.querySelector('#past_appointments');
 const div_todaysAppointments = document.querySelector('#todays_appointments');
 const div_futureAppointments = document.querySelector('#future_appointments');
@@ -8,6 +8,11 @@ const todays_table_title = document.querySelector('#todays_table_title');
 const first_row__past = document.querySelector('#first_row__past');
 const first_row__today = document.querySelector('#first_row__today');
 const first_row__future = document.querySelector('#first_row__future');
+const btn_priority_past = document.querySelector('#btn_order1');
+const btn_priority_today = document.querySelector('#btn_order2');
+const btn_priority_future = document.querySelector('#btn_order3');
+
+
 
 /* UTILITIES */
 
@@ -229,7 +234,7 @@ function getFutureAppointments(appointments) {
 
 /* Funzioni di creazione dei blocchi di visite */
 
-//renderPastFutureAppointmentCard crea le singole righe dei blocchi degli appuntamenti passati e futuri. Il blocco degli appuntamenti del giorno corrente avranno una struttura diversa. pastFutureBlock è il parametro che rappresenta il blocco (degli appuntamenti passati o di quelli futuri)
+//renderPastFutureAppointmentCard crea le singole righe dei blocchi degli appuntamenti passati e futuri. Il blocco degli appuntamenti del giorno corrente avrà una struttura diversa. pastFutureBlock è il parametro che rappresenta il blocco (degli appuntamenti passati o di quelli futuri)
 function renderPastFutureAppointmentCard(pastFutureBlock, appointment) {
     const appointmentCard = document.createElement('div');
     const patientName = document.createElement('h3');
@@ -391,12 +396,10 @@ function giveName() {
 async function loadData() {
     await getData(state.config.base_url);
 
-    giveName();
-
-    console.log(state.doc_appointment);
+    giveName(); //rinomino i pazienti
 
     const pastAppointments = orderByDates(getPastAppointments(state.doc_appointment));
-    const todaysAppointments = orderByDates(getTodaysAppointments(state.doc_appointment)); //ordino pure gli appuntamenti odierni, così se rimane tempo implemento anche la visualizzazione dell'ora...
+    const todaysAppointments = orderByDates(getTodaysAppointments(state.doc_appointment)); //ordino anche gli appuntamenti odierni
     const futureAppointments = orderByDates(getFutureAppointments(state.doc_appointment));
 
     console.log('Appuntamenti della scorsa settimana: \n', pastAppointments);
@@ -409,6 +412,44 @@ async function loadData() {
 
     btn_loadData.removeEventListener('click', loadData);
     btn_loadData.classList.add('is-hidden');
+
+    /* btn_priority_past.classList.add('btn_order');
+    btn_priority_today.classList.add('btn_order');
+    btn_priority_future.classList.add('btn_order'); */
 }
 
 btn_loadData.addEventListener('click', loadData);
+
+/* function orderCards() {
+    orderByPriority(div_pastAppointments.children);
+}
+
+btn_priority_past.addEventListener('click', orderCards)
+
+
+function getPriority(card) { //qui ci devo passare la card del singolo appuntamento
+    const info = card.children;
+    const priority = parseInt(info[4].textContent);
+
+    return priority;
+}
+
+//per ordinare con priorità, devo necessariamente passare in input alla funzione l'insieme delle card, quindi i figli di appointments che vanno da tipo il quinto fino allìultimo (i primi figli sono bottoni e righe varie!)
+
+function orderByPriority(list) {
+    for (let i = 3; i < list.length; i++) {
+        let exchange = false;
+        for (let j=1; j<((list.length)-i); j++) {
+            if (getPriority(list[j-1]) > getPriority(list[j])) {
+                let temp = list[j-1];
+                list[j-1] = list[j];
+                list[j] = temp;
+                exchange = true;
+            }
+        }
+
+        if (exchange === false) {
+            break;
+        }
+    }
+} */
